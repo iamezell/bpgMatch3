@@ -3822,7 +3822,7 @@ class Game extends __WEBPACK_IMPORTED_MODULE_2_phaser___default.a.Game {
     const width = docElement.clientWidth > __WEBPACK_IMPORTED_MODULE_6__config__["a" /* default */].gameWidth ? __WEBPACK_IMPORTED_MODULE_6__config__["a" /* default */].gameWidth : docElement.clientWidth;
     const height = docElement.clientHeight > __WEBPACK_IMPORTED_MODULE_6__config__["a" /* default */].gameHeight ? __WEBPACK_IMPORTED_MODULE_6__config__["a" /* default */].gameHeight : docElement.clientHeight;
 
-    super(width, height, __WEBPACK_IMPORTED_MODULE_2_phaser___default.a.CANVAS, 'content', null);
+    super(width, height, __WEBPACK_IMPORTED_MODULE_2_phaser___default.a.AUTO, 'content', null);
 
     this.state.add('Boot', __WEBPACK_IMPORTED_MODULE_3__states_Boot__["a" /* default */], false);
     this.state.add('Splash', __WEBPACK_IMPORTED_MODULE_4__states_Splash__["a" /* default */], false);
@@ -3885,15 +3885,14 @@ define(String.prototype, "padRight", "".padEnd);
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = {
-  gameWidth: 760,
-  gameHeight: 400,
+  gameWidth: 480,
+  gameHeight: 720,
   localStorageName: 'phaseres6webpack'
 };
 
 /***/ }),
 /* 122 */
 /* exports provided: default */
-/* exports used: default */
 /*!*********************************!*\
   !*** ./src/sprites/Mushroom.js ***!
   \*********************************/
@@ -3904,7 +3903,7 @@ define(String.prototype, "padRight", "".padEnd);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 
 
-/* harmony default export */ __webpack_exports__["a"] = class extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Sprite {
+/* unused harmony default export */ var _unused_webpack_default_export = class extends __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.Sprite {
   constructor({ game, x, y, asset }) {
     super(game, x, y, asset);
     this.anchor.setTo(0.5);
@@ -3937,6 +3936,19 @@ define(String.prototype, "padRight", "".padEnd);
     this.stage.backgroundColor = '#EDEEC9';
     this.fontsReady = false;
     this.fontsLoaded = this.fontsLoaded.bind(this);
+
+    if (this.game.device.desktop) {
+      this.scale.scaleMode = __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.ScaleManager.SHOW_ALL;
+      this.scale.setMinMax(480, 260, 1024, 768);
+      this.scale.pageAlignHorizontally = true;
+      this.scale.pageAlignVertically = true;
+    } else {
+      this.scale.scaleMode = __WEBPACK_IMPORTED_MODULE_0_phaser___default.a.ScaleManager.SHOW_ALL;
+      this.scale.setMinMax(480, 260, 1024, 768);
+      this.scale.pageAlignHorizontally = true;
+      this.scale.pageAlignVertically = true;
+      this.scale.forceOrientation(true, false);
+    }
   }
 
   preload() {
@@ -3952,6 +3964,15 @@ define(String.prototype, "padRight", "".padEnd);
 
     this.load.image('loaderBg', './assets/images/loader-bg.png');
     this.load.image('loaderBar', './assets/images/loader-bar.png');
+    this.load.image('game_title', './assets/images/game_title.png');
+    this.load.image('bean_blue', './assets/images/bean_blue.png');
+    this.load.image('bean_green', './assets/images/bean_green.png');
+    this.load.image('bean_orange', './assets/images/bean_orange.png');
+    this.load.image('bean_pink', './assets/images/bean_pink.png');
+    this.load.image('bean_purple', './assets/images/bean_purple.png');
+    this.load.image('bean_red', './assets/images/bean_red.png');
+    this.load.image('bean_white', './assets/images/bean_white.png');
+    this.load.image('bean_yellow', './assets/images/bean_yellow.png');
   }
 
   render() {
@@ -3978,7 +3999,9 @@ define(String.prototype, "padRight", "".padEnd);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser__ = __webpack_require__(/*! phaser */ 40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_phaser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_phaser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sprites_Mushroom__ = __webpack_require__(/*! ../sprites/Mushroom */ 122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actors_Board__ = __webpack_require__(/*! ../actors/Board */ 314);
 /* globals __DEV__ */
+
 
 
 
@@ -3987,30 +4010,17 @@ define(String.prototype, "padRight", "".padEnd);
   preload() {}
 
   create() {
-    const bannerText = 'Phaser + ES6 + Webpack';
-    let banner = this.add.text(this.world.centerX, this.game.height - 80, bannerText);
-    banner.font = 'Bangers';
-    banner.padding.set(10, 16);
-    banner.fontSize = 40;
-    banner.fill = '#77BFA3';
-    banner.smoothed = false;
-    banner.anchor.setTo(0.5);
+    let myBoard = new __WEBPACK_IMPORTED_MODULE_2__actors_Board__["a" /* default */](this);
+    myBoard.create();
 
-    this.mushroom = new __WEBPACK_IMPORTED_MODULE_1__sprites_Mushroom__["a" /* default */]({
-      game: this,
-      x: this.world.centerX,
-      y: this.world.centerY,
-      asset: 'mushroom'
-    });
-
-    this.game.add.existing(this.mushroom);
+    console.debug('game started');
   }
 
-  render() {
-    if (true) {
-      this.game.debug.spriteInfo(this.mushroom, 32, 32);
-    }
-  }
+  // render () {
+  //   if (__DEV__) {
+  //     this.game.debug.spriteInfo(this.mushroom, 32, 32)
+  //   }
+  // }
 };
 
 /***/ }),
@@ -9817,6 +9827,89 @@ module.exports = __webpack_require__(/*! ./modules/_core */ 24);
 
 __webpack_require__(/*! babel-polyfill */120);
 module.exports = __webpack_require__(/*! /Users/ezellburke/Documents/repos/march2017/bpgMatch3/src/main.js */119);
+
+
+/***/ }),
+/* 313 */,
+/* 314 */
+/* exports provided: default */
+/* exports used: default */
+/*!*****************************!*\
+  !*** ./src/actors/Board.js ***!
+  \*****************************/
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actors_Tile__ = __webpack_require__(/*! ../actors/Tile */ 315);
+
+
+class Board {
+  constructor(state) {
+    this.state = state;
+    this.game = state.game;
+    this.numColumns;
+    this.numRows;
+    this.tileArray;
+    this.grid = [];
+  }
+
+  create() {
+    let numRows = this.numRows;
+    let numColumns = this.numColumns;
+    let tileArray = this.tileArray;
+    let grid = this.grid;
+    let state = this.state;
+    let squareBitmap = this.game.add.bitmapData(40, 40);
+    let FoodArray = [];
+    squareBitmap.ctx.fillStyle = '#fff';
+    squareBitmap.ctx.fillRect(0, 0, 40, 40);
+    let tile = new __WEBPACK_IMPORTED_MODULE_0__actors_Tile__["a" /* default */](this.state, 150, 150, squareBitmap);
+    tile.add();
+    let request = new XMLHttpRequest();
+    request.addEventListener("load", function (event) {
+      var object = JSON.parse(this.response);
+      console.log(object);
+      numColumns = object.tiles.length;
+      numRows = object.tiles[0].length;
+      tileArray = object.tiles;
+
+      console.log('this is the grid', tileArray);
+
+      // this.gameState = "first"
+    });
+    request.open("GET", "/hotsauce/level");
+    request.send();
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Board;
+
+
+/***/ }),
+/* 315 */
+/* exports provided: default */
+/* exports used: default */
+/*!****************************!*\
+  !*** ./src/actors/Tile.js ***!
+  \****************************/
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+class Tile extends Phaser.Sprite {
+
+  constructor(state, x, y, image) {
+    super(state.game, x, y, image);
+    this.game = state.game;
+    this.state = state;
+    this.anchor.setTo(0.5, 0.5);
+  }
+
+  add() {
+    this.game.add.existing(this);
+  }
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Tile;
 
 
 /***/ })
